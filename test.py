@@ -2,11 +2,18 @@ from battlesnake import *
 import json
 import random
 
-state = create_random_state(11, 11)
+done = False
+test = Environment()
 
-while len(state['snakes']) > 0:
-    moves = [random.choice(['up', 'down', 'left', 'right']) for i in range(len(state['snakes']))]
+while not(done):
+
+    tensors = test.tensors
+
+    moves = [random.choice(['up', 'down', 'left', 'right']) for i in range(len(tensors))]
     print(moves)
-    display_state(state)
-    state, scores = next_state_and_scores(state, moves)
+    #test.show()
+
+    scores, done = test.step(moves)
     print(scores)
+
+test.replay()

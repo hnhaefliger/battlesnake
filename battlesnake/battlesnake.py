@@ -114,7 +114,13 @@ def next_state_and_scores(state, moves, food_chance=50, min_food=2):
         else:
             scores.append(0)
 
-    return new_state, scores
+    done = 0
+
+    if len(new_state['snakes']) == 0:
+        new_state = create_random_state(state['width'], state['height'])
+        done = 1
+
+    return new_state, scores, done, None
 
 
 def create_random_state(width, height, n_snakes=4, n_food=5):

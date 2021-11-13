@@ -1,5 +1,6 @@
 import random
 import tkinter as tk
+import numpy as np
 
 
 def random_color():
@@ -17,24 +18,23 @@ def random_color():
 
 
 def state_to_tensor(state, you):
-  tensor = [[[0 for i in range(state['width'])]
-             for j in range(state['height'])] for k in range(5)]
+    tensor = [[[0 for i in range(state['width'])] for j in range(state['height'])] for k in range(5)]
 
-  for food in state['food']:
-    tensor[0][food['y']][food['x']] = 1
+    for food in state['food']:
+        tensor[0][food['y']][food['x']] = 1
 
-  for snake in state['snakes']:
-    b, h = 1, 2  # body, head, layers
+    for snake in state['snakes']:
+        b, h = 1, 2  # body, head, layers
 
-    if snake == you:
-      b, h = 3, 4
+        if snake == you:
+            b, h = 3, 4
 
-    for body in snake['body']:
-      tensor[b][body['y']][body['x']] = 1
+        for body in snake['body']:
+            tensor[b][body['y']][body['x']] = 1
 
-    tensor[h][snake['head']['y']][snake['head']['x']] = 1
+            tensor[h][snake['head']['y']][snake['head']['x']] = 1
 
-  return tensor
+    return tensor
 
 
 def snake_tensors(state):
